@@ -1,0 +1,16 @@
+type TreeState = 'SCATTERED' | 'TREE_SHAPE';
+
+// 每个实例的元数据结构
+interface ParticleInstance {
+  id: number;
+  treePosition: THREE.Vector3;    // 目标树体坐标
+  scatterPosition: THREE.Vector3; // 炸裂后的平衡坐标
+  velocity: THREE.Vector3;        // 当前速度
+  weight: number;                 // 受力权重 (礼物盒 > 彩球 > 星星)
+}// Vertex Shader 伪代码片段
+void main() {
+    float noise = snoise(position + uTime);
+    vec3 animatedPos = position + (normal * noise * 0.05); // 呼吸感
+    gl_PointSize = uSize * (1.0 / -mvPosition.z);
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(animatedPos, 1.0);
+}
